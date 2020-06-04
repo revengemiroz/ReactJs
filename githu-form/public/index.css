@@ -7,11 +7,8 @@
 }
 
 body{
-    background-color: #2b3137;
+   
     font-family: 'Inter',sans-serif;
-    background-image: url('https://github.githubassets.com/images/modules/site/heroes/simple-codelines.svg');
-    background-position: center;
-    background-repeat: no-repeat;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -19,11 +16,26 @@ body{
     justify-content: center;
 }
 
+#root{
+    height: 100%;
+    width: 100%;
+}
+
+.app{
+    height: 100vh;
+    /* border: 2px solid green; */
+}
+
 .formContainer{
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 100vh;
+    background-color: #2b3137;
+    background-image: url('https://github.githubassets.com/images/modules/site/heroes/simple-codelines.svg');
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .iconContainer{
@@ -50,17 +62,7 @@ h1{
     text-align: center;
 }
 
-a{
-    cursor: pointer;
-    color: hsl(212, 97%, 43%);
-    display: inline;
-    font-size: 11px;
-    line-height: 18px;
-}
 
-a:hover{
-    text-decoration:underline;
-}
 
 input{
     outline-style:none;

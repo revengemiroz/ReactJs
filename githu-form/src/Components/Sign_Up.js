@@ -83,17 +83,29 @@ font-size:14px;
 border-radius:3px;
 `
 
+const A = styled.a`
+    cursor: pointer;
+    color:hsl(212, 97%, 43%);
+    display: inline;
+    font-size: 11.5px;
+    line-height: 21px;
+    font-weight:400;
 
+&:hover{
+    text-decoration:underline;
+}
+`
 
 
 function Sign_Up() {
 
     const { register, errors, watch, handleSubmit, control, setError, clearError } = useForm({ nativeValidation: true })
     const username = watch('username')
-
-    const [isBollean, setIsBollean] = useState(false)
-
-
+    const [isBollean, setIsBollean] = useState(true)
+    const onSubmit = (data) => {
+        alert(JSON.stringify(data, null, 2))
+        setIsBollean(!isBollean)
+    }
 
     return (
 
@@ -110,10 +122,7 @@ function Sign_Up() {
                         <Container>
 
 
-                            <form onSubmit={handleSubmit(() => {
-                                alert('submitted')
-                                setIsBollean(!isBollean)
-                            })}>
+                            <form onSubmit={handleSubmit(onSubmit)}>
 
                                 <div>
 
@@ -186,7 +195,7 @@ function Sign_Up() {
                                             {errors.password && <img className='icon' src={errorpng}></img>}
                                         </div>
                                         <P>
-                                            Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter. <a>Learn more.</a>
+                                            Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter. <A>Learn more.</A>
                                         </P>
                                     </InputContainer>
 
@@ -195,7 +204,7 @@ function Sign_Up() {
                                     </Button>
 
                                     <PNote>
-                                        By clicking “Sign up for GitHub”, you agree to our <a>Terms of Service</a> and <a> Privacy Statement.</a> We’ll occasionally send you account related emails.
+                                        By clicking “Sign up for GitHub”, you agree to our <A>Terms of Service</A> and <A> Privacy Statement.</A> We’ll occasionally send you account related emails.
                                 </PNote>
 
                                 </div>

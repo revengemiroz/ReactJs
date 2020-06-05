@@ -4,7 +4,8 @@ import { DevTool } from 'react-hook-form-devtools';
 import styled from 'styled-components';
 import errorpng from '../error@2x.png';
 import Signin from '../Components/Sign_In';
-
+import { withNamespaces } from 'react-i18next';
+import i18n from '../i18n';
 
 
 const Container = styled.div`
@@ -68,7 +69,7 @@ width:100%;
 
 const Button = styled.input.attrs({
     type: 'submit',
-    value: 'Sign up for Github'
+
 })`
 background-color:hsl(134,61%,46%);
 border:1.11px solid hsl(134,61%,46%);
@@ -97,7 +98,7 @@ const A = styled.a`
 `
 
 
-function Sign_Up() {
+function Sign_Up({ t }) {
 
     const { register, errors, watch, handleSubmit, control, setError, clearError } = useForm({ nativeValidation: true })
     const username = watch('username')
@@ -107,15 +108,21 @@ function Sign_Up() {
         setIsBollean(!isBollean)
     }
 
+
+
     return (
 
         <div>
 
 
             {isBollean ? (
+
                 <div className='formContainer'>
+
+
+
                     <>
-                        <h1>Built for developers</h1>
+                        <h1>{t('Built for developers')}</h1>
 
                         <DevTool control={control}></DevTool>
 
@@ -128,24 +135,24 @@ function Sign_Up() {
 
 
                                     <InputContainer>
-                                        <Label htmlFor='username'>Username</Label>
+                                        <Label htmlFor='username'>{t('Username')}</Label>
                                         <div className='iconContainer'>
                                             <Input
                                                 id='username'
                                                 name='username'
-                                                min='0'
-                                                onChange={async e => {
-                                                    const value = e.target.value;
+                                                // min='0'
+                                                // onChange={async e => {
+                                                //     const value = e.target.value;
 
-                                                    if (value.length > 8 && value.length <= 15) {
-                                                        clearError("username");
-                                                    } else {
-                                                        setError(
-                                                            "username",
+                                                //     if (value.length > 8 && value.length <= 15) {
+                                                //         clearError("username");
+                                                //     } else {
+                                                //         setError(
+                                                //             "username",
 
-                                                        );
-                                                    }
-                                                }}
+                                                //         );
+                                                //     }
+                                                // }}
 
                                                 ref={
                                                     register({
@@ -160,7 +167,7 @@ function Sign_Up() {
                                     </InputContainer>
 
                                     <InputContainer>
-                                        <Label htmlFor='email'>Email</Label>
+                                        <Label htmlFor='email'>{t('Email')}</Label>
                                         <div className='iconContainer'>
                                             <Input
                                                 id='email'
@@ -177,7 +184,7 @@ function Sign_Up() {
                                     </InputContainer>
 
                                     <InputContainer>
-                                        <Label htmlFor='password'>Password</Label>
+                                        <Label htmlFor='password'>{t('Password')}</Label>
                                         <div className='iconContainer'>
                                             <Input
                                                 id='password'
@@ -185,9 +192,9 @@ function Sign_Up() {
                                                 ref={
                                                     register({
                                                         required: true,
-                                                        maxLength: 15,
-                                                        minLength: 8,
-                                                        pattern: /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
+                                                        // maxLength: 15,
+                                                        // minLength: 8,
+                                                        // pattern: /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/
                                                     })
                                                 }
                                             >
@@ -195,17 +202,17 @@ function Sign_Up() {
                                             {errors.password && <img className='icon' src={errorpng}></img>}
                                         </div>
                                         <P>
-                                            Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter. <A>Learn more.</A>
+                                            {t('Make sure its at least 15 characters OR at least 8 characters including a number and a lowercase letter.')} <A>{t('Learn more.')}</A>
                                         </P>
                                     </InputContainer>
 
 
-                                    <Button>
+                                    <Button value={t('Sign up for Github')}>
                                     </Button>
 
                                     <PNote>
-                                        By clicking “Sign up for GitHub”, you agree to our <A>Terms of Service</A> and <A> Privacy Statement.</A> We’ll occasionally send you account related emails.
-                                </PNote>
+                                        {t('By clicking “Sign up for GitHub”, you agree to our')} <A>{t('Terms of Service')}</A>{t('and')}<A> {t('Privacy Statement.')}</A>{t('We’ll occasionally send you account related emails.')}
+                                    </PNote>
 
                                 </div>
 
@@ -222,4 +229,4 @@ function Sign_Up() {
 
 
 
-export default Sign_Up;
+export default withNamespaces()(Sign_Up);

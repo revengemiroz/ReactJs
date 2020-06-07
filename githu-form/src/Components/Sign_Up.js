@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { DevTool } from 'react-hook-form-devtools';
 import styled from 'styled-components';
@@ -64,24 +64,25 @@ margin-top:16px;
 color:hsl(210,8%,45%);
 font-size:11px;
 line-height:15px;
+text-align:center;
 width:100%;
 `
 
-const Button = styled.input.attrs({
-    type: 'submit',
-
-})`
+const Button = styled.input`
 background-color:hsl(134,61%,46%);
 border:1.11px solid hsl(134,61%,46%);
-padding:20px 32px;
-width:100%;
-margin:16px 0px;
+padding: ${props => props.signin ? '7px' : '20px 32px'};
+width:${props => props.signin ? '150px' : '100%'};
+margin:${props => props.signin ? '7px' : '16px 0px'};
 color:white;
 text-align:center;
 font-weight:700;
 line-height:22px;
 font-size:14px;
 border-radius:3px;
+letter-spacing:${props => props.signin ? '0.1em' : '0em'};
+user-select:none;
+cursor: pointer;
 `
 
 const A = styled.a`
@@ -96,6 +97,21 @@ const A = styled.a`
     text-decoration:underline;
 }
 `
+const H3 = styled.span`
+line-height:1.25em;
+color: #ffffff;
+font-size:45px;
+margin:0.7em 0.2em 0.5em 0.2em;
+font-weight: 500;
+text-align: center;
+/* border: 2px solid green; */
+`
+
+const Or = styled.p`
+color:white;
+margin-top:0.5em;
+font-size:14px;
+`
 
 
 function Sign_Up({ t }) {
@@ -105,6 +121,7 @@ function Sign_Up({ t }) {
     const [isBollean, setIsBollean] = useState(true)
     const onSubmit = (data) => {
         alert(JSON.stringify(data, null, 2))
+        localStorage.getItem('userDetails') ? localStorage.setItem('userDetails', JSON.stringify(data)) : (localStorage.setItem('userDetails', JSON.stringify(data)))
         setIsBollean(!isBollean)
     }
 
@@ -122,7 +139,7 @@ function Sign_Up({ t }) {
 
 
                     <>
-                        <h1>{t('Built for developers')}</h1>
+                        <H3>{t('Built for developers')}</H3>
 
                         <DevTool control={control}></DevTool>
 
@@ -207,18 +224,21 @@ function Sign_Up({ t }) {
                                     </InputContainer>
 
 
-                                    <Button value={t('Sign up for Github')}>
+                                    <Button value={t('Sign up for Github')} type='submit'>
                                     </Button>
 
                                     <PNote>
-                                        {t('By clicking “Sign up for GitHub”, you agree to our')} <A>{t('Terms of Service')}</A>{t('and')}<A> {t('Privacy Statement.')}</A>{t('We’ll occasionally send you account related emails.')}
+                                        {t('By clicking “Sign up for GitHub”, you agree to our')} <A>{t('Terms of Service')}</A> {t('and')}<A> {t('Privacy Statement.')}</A> {t('We’ll occasionally send you account related emails.')}
                                     </PNote>
 
                                 </div>
 
                             </form>
+
                         </Container>
                     </>
+                    <Or>Or</Or>
+                    <Button signin value={t('Sign In')} type='submit' onClick={() => setIsBollean(!isBollean)}></Button>
                 </div >
             ) : (<Signin state={isBollean}></Signin>)}
 

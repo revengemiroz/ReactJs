@@ -3,6 +3,9 @@ import { useForm } from 'react-hook-form';
 import styled from 'styled-components';
 import SignUp from '../Components/Sign_Up';
 import Reset from './Reset_Password';
+import { withNamespaces } from 'react-i18next';
+import i18n from '../i18n';
+
 
 const SignInDiv = styled.div`
 background-color:#f9f9f9;
@@ -10,6 +13,7 @@ background-color:#f9f9f9;
 width:100%;
 height:100vh;
 display:flex;
+
 flex-direction:column;
 justify-content:flex-start;
 align-items:center;
@@ -17,8 +21,10 @@ font-family: -apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helve
 `
 
 const Logo = styled.div`
+margin-top:5em;
 color:rgb(51,51,51);
 padding:32px 0px 24px 0px;
+cursor: pointer;
 `
 
 const Title = styled.p`
@@ -158,54 +164,93 @@ color:rgb(3,102,214);
 cursor:pointer;
 `
 
-function Sign_In(state) {
+function Sign_In({ t }, state) {
 
     const { register, handleSubmit, errors } = useForm()
     const [isBollean, setIsBollean] = useState(state)
     const [forgot, setForgot] = useState(true)
 
-
     const onSubmit = data => {
         // alert(JSON.stringify(data));
-        alert(JSON.stringify(data, null, 2))
+        // alert(JSON.stringify(data, null, 2))
+        if (localStorage.getItem('userDetails') != null) {
+
+            const { email, password, username } = JSON.parse(localStorage.getItem('userDetails'))
+            if (data.username == email || username && data.password == password) {
+                alert('account matched')
+                setIsBollean(!isBollean)
+
+            }
+            else {
+                alert('account not found')
+            }
+        }
+        else {
+
+            alert('there is no account added yet')
+
+        }
+
+    }
+
+    const onASubmit = () => {
+
         setIsBollean(!isBollean)
     }
 
     const onResetPass = data => {
-        alert(JSON.stringify(data, null, 2))
+        // alert(JSON.stringify(data, null, 2))
 
-        setForgot(!forgot)
+        if (localStorage.getItem('userDetails') != null) {
+            const resetEmail = JSON.parse(localStorage.getItem('userDetails'))
+
+            if (data.email == resetEmail.email) {
+                localStorage.removeItem('userDetails')
+                alert('the email has been deleted')
+                setForgot(!forgot)
+            }
+            else {
+                alert('the email doesnt match')
+            }
+        }
+        else {
+
+            alert('there is no account added yet')
+
+        }
+
     }
 
     return (
-        <div>
+        <>
             {isBollean ? (
 
 
                 <SignInDiv className='SignIn'>
-                    <Logo>
+
+                    <Logo onClick={onASubmit}>
                         <svg height="48" class="octicon octicon-mark-github" viewBox="0 0 16 16" version="1.1" width="48" aria-hidden="true">
                             <path fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"></path></svg>
                     </Logo>
 
                     {forgot ? (
                         <>
-                            <Title>Sign in to GitHub</Title>
+                            <Title>{t('Sign in to GitHub')}</Title>
                             <form key={1} onSubmit={handleSubmit(onSubmit)}>
                                 <Div>
                                     <InputContainer>
-                                        <Label htmlFor='username'>Username or email address</Label>
+                                        <Label htmlFor='username'>{t('Username')} {t('or')} {t('email address')}</Label>
                                         <Input id='username' name='username' type='text' ref={register}></Input>
                                     </InputContainer>
 
                                     <div>
                                         <LabelContainer>
-                                            <Label htmlFor='password'>Password</Label>
+                                            <Label htmlFor='password'>{t('Password')}</Label>
 
                                             <A forgot onClick={() => {
 
                                                 setForgot(!forgot)
-                                            }}>Forgot password?</A>
+                                            }}>{t('Forgot password?')}</A>
                                         </LabelContainer>
 
                                         <Input id='password' name='password' type='text' ref={register}></Input>
@@ -217,22 +262,22 @@ function Sign_In(state) {
                             </form>
 
                             <New>
-                                <p>New to Github? <A createandaccount onClick={onSubmit}>Create an account.</A></p>
+                                <p>{t('New to Github?')} <A createandaccount onClick={onASubmit}>{t('Create an account.')}</A></p>
                             </New>
                         </>
                     ) : (
                             <>
-                                <Title>Reset your password</Title>
+                                <Title>{t('Reset your password')}</Title>
                                 <form key={2} onSubmit={handleSubmit(onResetPass)}>
                                     <Div>
                                         <InputContainer>
-                                            <Label htmlFor='email'>Enter your user account's verified email address and we will send you a password reset link.</Label>
-                                            <Input id='email' name='email' type='text' ref={register} placeholder='Enter your email address'></Input>
+                                            <Label htmlFor='email'>{t('Enter your user accounts verified email address and we will send you a password reset link.')}</Label>
+                                            <Input Input id='email' name='email' type='text' ref={register} placeholder={t('Enter your email address')} ></Input>
                                         </InputContainer>
 
 
 
-                                        <Button value='Send password reset email' reset></Button>
+                                        <Button value={t('Send password reset email')} reset></Button>
 
                                     </Div>
                                 </form>
@@ -244,19 +289,19 @@ function Sign_In(state) {
                     <Links>
                         <Ul>
                             <Li>
-                                <A list>Terms</A>
+                                <A list>{t('Terms')}</A>
                             </Li>
 
                             <Li>
-                                <A list>Privacy</A>
+                                <A list>{t('Privacy')}</A>
                             </Li>
 
                             <Li>
-                                <A list>Security</A>
+                                <A list>{t('Security')}</A>
                             </Li>
 
                             <Li >
-                                <A contact list>Contact GitHub</A>
+                                <A contact list>{t('Contact GitHub')}</A>
                             </Li>
                         </Ul>
                     </Links>
@@ -265,8 +310,8 @@ function Sign_In(state) {
             ) : (
                     <SignUp></SignUp>
                 )}
-        </div>
+        </>
     );
 }
 
-export default Sign_In;
+export default withNamespaces()(Sign_In);

@@ -1,0 +1,320 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap');
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Poppins', sans-serif;
+    height: 100%;
+    background-color:#f0eefa;
+}
+
+.App{
+    border-radius: 5px;
+    padding: 3em 5em 1em 5em;
+    margin: 50px 100px;
+    background-color: white;
+    /* border: 2px solid none; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.inputContainer{
+    border: 2px solid none;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 70%;
+    margin: 20px 0px;
+}
+
+.error{
+    text-align: center;
+}
+
+.allli{
+border: 2px solid none;
+margin: 0px 20px;
+width: 100%;
+}
+
+input{
+    padding:1.1em 0 1.1em 1em;
+    border-radius: 10px;
+    width: 100%;
+    background-color: #f2f1f6;
+    font-size: 1.2rem;
+    max-width: 600px;
+}
+
+input::placeholder{
+    color: #adabba;
+}
+
+button{
+    border: none;
+    padding: 0.7em 1.5em 0.7em 1.5em;
+    border-radius: 5px;
+    background-color: #6641e1;
+    color: white;
+    font-weight: 900;
+    letter-spacing: 0.1em;
+    font-size: 1.2rem;
+}
+
+h1{
+    font-size: 3rem;
+    color: #211746;
+    
+}
+
+span{
+    margin-top: 10px;
+}
+
+ul{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+li{
+    list-style: none;
+    /* border: 2px solid none; */
+    width: 100%;
+    padding:0em 10px 0px 80px;
+    margin-top: 20px;
+    background-color: #f2f1f6;
+    border-radius: 5px;
+    
+}
+
+.dataContainer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.data{
+    font-size: 2.5rem;
+    border: 2px solid none;
+    width:50%;
+    overflow: hidden;
+}
+
+.edit{
+    border: 2px solid none;
+    background-color: white;
+    font-weight: 500;
+    padding: 0.6em 0 0.6em 1em;
+    width: 80%;
+    margin-right: 10px;
+}
+
+.buttonContainer{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    border: 2px solid none;
+}
+
+.buttonContainer>button{
+}
+
+@media screen and (max-width:500px){
+    .App{
+        border-radius: 5px;
+        padding: 20px 20px 20px 20px;
+        margin: 50px 15px;
+        background-color: white;
+        /* border: 2px solid none; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .inputContainer{
+        border: 2px solid none;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        
+        margin: 20px 0px;
+    }
+
+    .add{
+        margin-top: 10px;
+    }
+    
+    .error{
+        text-align: center;
+    }
+    
+    li{
+        border: 2px solid none;
+        width: 100%;
+        padding: 0;
+
+    }
+
+    .data{
+        font-size: 1.3rem;
+        height: 80px;
+        text-align: center;
+    }
+
+    .edit{
+        max-width: 150px;
+    }
+
+    .buttonContainer{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 2px solid none;
+        max-width: 120px;
+    }
+    
+    .buttonContainer>button{
+        margin-top: 10px;
+        padding: 0.5em;
+        width: 100%;
+    }
+}
+
+
+@media screen and (min-width:500px){
+    .App{
+        border-radius: 5px;
+        padding: 20px 20px 20px 20px;
+        margin: 50px 15px;
+        background-color: white;
+        /* border: 2px solid none; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .inputContainer{
+        border: 2px solid none;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        
+        margin: 20px 0px;
+    }
+
+    .add{
+        margin-top: 10px;
+    }
+    
+    .error{
+        text-align: center;
+    }
+    
+    li{
+        border: 2px solid none;
+        width: 100%;
+        padding: 0;
+
+    }
+
+    .data{
+        font-size: 1.3rem;
+        height: 80px;
+        text-align: center;
+    }
+
+ 
+
+    .buttonContainer{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 2px solid none;
+        width: 200px;
+    }
+    
+    .buttonContainer>button{
+        margin-top: 10px;
+        padding: 0.5em;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width:800px){
+    .App{
+        border-radius: 5px;
+        padding: 20px 20px 20px 20px;
+        margin: 50px 15px;
+        background-color: white;
+        /* border: 2px solid none; */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+
+    .inputContainer{
+        border: 2px solid none;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-evenly;
+        width: 100%;
+        margin: 20px 0px;
+    }
+
+    .add{
+       margin: 0;
+    }
+    
+    .error{
+        text-align: center;
+    }
+    
+    li{
+        border: 2px solid none;
+        width: 100%;
+        padding: 0;
+    }
+
+    .data{
+        font-size: 1.3rem;
+        height: 100px;
+        text-align: center;
+        width: 60%;
+    }
+
+    .edit{
+        width: 100%;
+    }
+
+    .buttonContainer{
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        border: 2px solid none;
+        width: 500px;
+    }
+    
+    .buttonContainer>button{
+        margin-right: 10px;
+        padding: 0.5em;
+        width: 40%;
+    }
+}
+

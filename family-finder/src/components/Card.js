@@ -1,11 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import styled from 'styled-components';
+import maleIcon from '../assets/m.png';
+import femaleIcon from '../assets/f.png'
+import { renderContext } from "../Context/RenderContext";
 
 const Container = styled.div`
 display:flex;
-justify-content:space-between;
+justify-content:center;
+align-items:flex-start;
 flex-wrap:wrap;
-margin:0px 40px;
+margin:0px 100px;
 height:100vh;
 `
 
@@ -31,20 +35,47 @@ margin-top:20px;
 
 `
 
-const P = styled.p`
-/* border:2px solid green; */
+const P = styled.div`
+border:${props => props.show ? '2px solid #e85f99' : ''};
+text-transform:capitalize;
 margin-top:10px;
-height:${props => props.long ? '22%' : '10%'};
+border-radius:3px;
+width:100%;
+display:${props => props.long ? '' : 'flex'};
+justify-content:${props => props.long ? '' : 'center'};
+align-items:${props => props.long ? '' : 'center'};
+height:${props => props.long ? '20%' : props.short ? '10%' : ''};
+word-wrap: break-word;
+
 `
 const PContainer = styled.div`
 /* border:2px solid green; */
 display:flex;
-justify-content:space-evenly;
+justify-content:space-between;
 `
+const genders = {
+    male: maleIcon,
+    female: femaleIcon
+}
 
-function Card({ datas }) {
-    const [isBollean, setIsBollean] = useState(null)
+function findGender(gender) {
+    const text = gender.toLowerCase();
+    const icon = genders[text]
+    return icon
+}
+
+
+function Card() {
+
+    //use Context
+    const hooks = useContext(renderContext)
+    const { datas } = hooks
+
+
     return (
+
+
+
         <Container>
             {datas.map(a => (
                 <div className='c-subscribe-box u-align-center' key={a._id}>
@@ -54,27 +85,30 @@ function Card({ datas }) {
                         <ImgContainer>
                             <img src={a.person_Image}></img>
                         </ImgContainer>
-                        <P><strong>Full Name :</strong> {a.FirstName} {a.LastName}</P>
+                        <P ><strong>Full Name :&nbsp;</strong>{a.FirstName} {a.LastName}</P>
 
                         <PContainer>
-                            <P><strong>Age :</strong> {a.Age}</P>
-                            <P><strong>Gender</strong> : {a.Gender} </P>
-                            <P><strong>Married :</strong> {a.Married}</P>
+                            <P><strong>DOB :&nbsp;</strong> {a.DateOfBirth}</P>
+                            <P><strong>Married :&nbsp;</strong> {a.Married}</P>
                         </PContainer>
-
-                        <P><strong>Date of Birth :</strong> {a.DateOfBirth}</P>
-
 
                         <PContainer>
-                            <P ><strong>Blood Group :</strong> {a.Description}</P>
-                            <P ><strong>Horoscope :</strong> {a.Description}</P>
+                            <P ><strong>Blood Group :&nbsp;</strong> <strong style={{ color: 'red' }}>{a.BloodGroup}</strong></P>
+                            <P ><strong>Gender :&nbsp;</strong><div className='iconContainer'><img className='icons' src={findGender(a.Gender)}></img></div></P>
+
                         </PContainer>
 
-                        <P long><strong>Nata : </strong>{a.Nata}</P>
+                        <PContainer>
+                            <P><strong>Age : &nbsp;</strong> {a.Age}</P>
+                            <P ><strong>Horoscope :&nbsp;</strong> {a.Horoscope}</P>
+                        </PContainer>
+
+                        <P show long ><strong>Nata : </strong>{a.Nata}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</P>
                     </Details>
                 </div>
             ))}
         </Container>
+
 
     );
 }

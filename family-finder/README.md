@@ -1,3 +1,7 @@
+# this used MERN Stack used useContext, hooks, useEffect, made my own API, used mongodb, hosted images in Cloudinary, 
+
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts

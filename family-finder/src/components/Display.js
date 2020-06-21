@@ -1,19 +1,39 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import axios from "axios";
 import styled from 'styled-components';
 import Card from './Card'
+import { renderContext } from "../Context/RenderContext";
 
-const DisplayContainer = styled.div`
-border:2px solid green;
-display:flex;
-flex-direction:row;
-`
 
-function display({ datas }) {
+function Display() {
+
+    //use Context    
+    const hooks = useContext(renderContext)
+    const { datas, setDatas } = hooks
+
+    useEffect(() => {
+        getData()
+    }, [])
+
+    function getData() {
+        axios({
+            method: 'get',
+            url: 'https://miroz.herokuapp.com/person',
+
+        }).then(response => {
+            console.log(response.data)
+            setDatas(response.data)
+
+        })
+            .catch(error => {
+                console.log(error.response)
+            });
+    }
+
 
     return (
-        <h1>asdasd</h1>
+        <Card></Card>
     );
 }
 
-export default display;
+export default Display;

@@ -5,10 +5,13 @@ export const renderContext = createContext()
 export function StateProvider(props) {
 
     const [datas, setDatas] = useState([])
+    const [isLoading, setIsLoading] = useState(true)
 
     const hooks = {
         datas,
-        setDatas
+        setDatas,
+        isLoading,
+        setIsLoading
     }
 
     return (

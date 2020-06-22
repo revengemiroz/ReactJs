@@ -9,9 +9,11 @@ function Display() {
 
     //use Context    
     const hooks = useContext(renderContext)
-    const { datas, setDatas } = hooks
+    const { datas, setDatas, isLoading, setIsLoading } = hooks
+
 
     useEffect(() => {
+
         getData()
     }, [])
 
@@ -23,7 +25,7 @@ function Display() {
         }).then(response => {
             console.log(response.data)
             setDatas(response.data)
-
+            setIsLoading(false)
         })
             .catch(error => {
                 console.log(error.response)

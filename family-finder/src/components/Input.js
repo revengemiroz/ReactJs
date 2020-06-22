@@ -3,9 +3,13 @@ import axios from 'axios';
 import Card from "./Card";
 import styled from 'styled-components';
 import { renderContext } from "../Context/RenderContext";
+
 const InputContainer = styled.div`
 width:100%;
-
+/* border:2px solid green; */
+padding:0.5em;
+display:flex;
+justify-content:center;
 `
 
 const Inputs = styled.input`
@@ -26,7 +30,7 @@ function Input() {
 
     //useContext
     const hooks = useContext(renderContext)
-    const { datas, setDatas } = hooks
+    const { datas, setDatas, isLoading, setIsLoading } = hooks
 
 
     function handleChange(e) {
@@ -35,14 +39,16 @@ function Input() {
 
     function handleSubmit() {
         if (!value) return
-
+        setIsLoading(true)
         axios({
             method: 'get',
             url: `https://miroz.herokuapp.com/person/name/${value}`,
 
         }).then(response => {
             console.log(response.data)
+
             setDatas(response.data)
+            setIsLoading(false)
         })
             .catch(error => {
                 console.log(error.response)

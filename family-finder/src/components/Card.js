@@ -6,10 +6,10 @@ import { renderContext } from "../Context/RenderContext";
 
 const Container = styled.div`
 display:flex;
-justify-content:center;
+justify-content:space-evenly;
 align-items:flex-start;
 flex-wrap:wrap;
-margin:0px 100px;
+margin:50px 0px;
 height:100vh;
 `
 
@@ -69,47 +69,49 @@ function Card() {
 
     //use Context
     const hooks = useContext(renderContext)
-    const { datas } = hooks
+    const { datas, isLoading, setIsLoading } = hooks
 
 
     return (
+        <>
+            {
+                isLoading ?
+                    <p>loading</p>
+                    :
+                    <Container>
+                        {datas.map(a => (
+                            <div className='c-subscribe-box u-align-center' key={a._id}>
+                                <div className="rainbow"><span></span><span></span></div>
 
+                                <Details className='c-subscribe-box__wrapper'>
+                                    <ImgContainer>
+                                        <img src={a.person_Image}></img>
+                                    </ImgContainer>
+                                    <P ><strong>Full Name :&nbsp;</strong>{a.FirstName} {a.LastName}</P>
 
+                                    <PContainer>
+                                        <P><strong>DOB :&nbsp;</strong> {a.DateOfBirth}</P>
+                                        <P><strong>Married :&nbsp;</strong> {a.Married}</P>
+                                    </PContainer>
 
-        <Container>
-            {datas.map(a => (
-                <div className='c-subscribe-box u-align-center' key={a._id}>
-                    <div className="rainbow"><span></span><span></span></div>
+                                    <PContainer>
+                                        <P ><strong>Blood Group :&nbsp;</strong> <strong style={{ color: 'red' }}>{a.BloodGroup}</strong></P>
+                                        <P ><strong>Gender :&nbsp;</strong><div className='iconContainer'><img className='icons' src={findGender(a.Gender)}></img></div></P>
 
-                    <Details className='c-subscribe-box__wrapper'>
-                        <ImgContainer>
-                            <img src={a.person_Image}></img>
-                        </ImgContainer>
-                        <P ><strong>Full Name :&nbsp;</strong>{a.FirstName} {a.LastName}</P>
+                                    </PContainer>
 
-                        <PContainer>
-                            <P><strong>DOB :&nbsp;</strong> {a.DateOfBirth}</P>
-                            <P><strong>Married :&nbsp;</strong> {a.Married}</P>
-                        </PContainer>
+                                    <PContainer>
+                                        <P><strong>Age : &nbsp;</strong> {a.Age}</P>
+                                        <P ><strong>Horoscope :&nbsp;</strong> {a.Horoscope}</P>
+                                    </PContainer>
 
-                        <PContainer>
-                            <P ><strong>Blood Group :&nbsp;</strong> <strong style={{ color: 'red' }}>{a.BloodGroup}</strong></P>
-                            <P ><strong>Gender :&nbsp;</strong><div className='iconContainer'><img className='icons' src={findGender(a.Gender)}></img></div></P>
-
-                        </PContainer>
-
-                        <PContainer>
-                            <P><strong>Age : &nbsp;</strong> {a.Age}</P>
-                            <P ><strong>Horoscope :&nbsp;</strong> {a.Horoscope}</P>
-                        </PContainer>
-
-                        <P show long ><strong>Nata : </strong>{a.Nata}aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa</P>
-                    </Details>
-                </div>
-            ))}
-        </Container>
-
-
+                                    <P long ><strong>Nata : </strong>{a.Nata}</P>
+                                </Details>
+                            </div>
+                        ))}
+                    </Container>
+            }
+        </>
     );
 }
 
